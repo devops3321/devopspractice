@@ -1,0 +1,91 @@
+files are used for storing data
+eg 20mb, 100mg, 1 gb - file handling
+for larger data like 1tb etc what do we use - Databases.
+DB -
+    RDBMS(huge data) - oracle, postegresql
+    NoSQL(unstructured data) MongoDB, apache cassandra
+    combination of both.
+
+types of files
+video, image, text etc
+binary - image etc
+non-binary - text files.
+
+open() - used to create a file, write to a file, read a file, and append to a file, how?
+so in order to accomplish all those - there are modes.
+
+14 modes in py 
+- mode is nothing but a permission given to a file
+
+r - read a file
+w - create and write a file. 
+a - append to a file
+r+ - read and write 
+w+ - write and read 
+a+ - append and read
+X - exclusive file system 
+
+rb 
+wb
+ab
+rb+
+wb+
+ab+
+xb
+
+b - is the mode for binary images.
+
+r - is the deault mode.
+
+
+1. r- mode 
+open existing file for read operations 
+f=open('abc.txt','r')
+FileNotFoundError
+
+2. w - mode 
+open existing file for write operations
+     if file is already available - overwrite (v imp)
+     if file is not available then it will create a new file.
+
+3. a-mode 
+open existing file for append or write operation 
+    if file is already available - add content to EOF 
+    if file is not available - it will create a new file. 
+
+f.seek() 
+
+4. read and wrtite r+
+read - if its avaialble then read it
+read/write
+
+5. w+ 
+write/read
+
+diff between r+ and w+ 
+in r+ mode it will throw an error if the file doesnt exist as it creates it.
+but in w+ it will not throw an error.
+
+6. a+
+read and write - but at the end of file. 
+7. x - almost like write only  basically open in exclusive mode for write.
+
+if the file is already available - will throw and error and NOT override( v imp diff)
+if file not available then it will just create  a new file.
+
+properties of a file
+name 
+mode
+closed or not 
+readble or not
+writable or not 
+
+
+
+
+
+
+
+
+
+

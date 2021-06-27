@@ -1,0 +1,33 @@
+# lines of code -> block of code
+re-usability is the key 
+print(), type()
+
+def - keyword used to define a function.
+how many types of function are there:
+a. Built-in functions, like print(), type()
+b. user-defined functions or programmer funcitons - we will make 
+c. Lambda functions -> m imp for int.
+d. Magic methods or even called Dundle methods or super methods - oops.  In oops methods are called as funcitons.
+eg __somename__
+CPython
+if __name__ == "__main__":
+    pass
+
+Functions are also called as "First class Objects"  - oops concept.
+a=5
+type(a) -> class int 
+
+1 how you define a function
+a=5  -> define the variable 'a'
+listx = [1,2,3,4] -> define a list that it contains integers 
+
+def <functionname>(param1, param2, param3 ......paramn): Params are optional
+    # lines of code for our function
+    # return <someobject> - this is optional 
+
+2. Call the function 
+<functionname>(param1, param2, param3 ......paramn)
+
+
+
+Max Lines of code inside a function 30 lines per best coding practice. there is no restriction as such
