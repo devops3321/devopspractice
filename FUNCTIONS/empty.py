@@ -1,2 +1,0 @@
-# no code
-print(dir())
