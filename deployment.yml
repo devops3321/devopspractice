@@ -91,4 +91,3 @@ spec:
   - name:  mongodbport
     port:  80
     targetPort:  8000
-    NodePort: 27017
