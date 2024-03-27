@@ -78,3 +78,17 @@ spec:
           hostPath:
             path: /data/db
       restartPolicy: Always
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  mongosvc
+spec:
+  selector:
+    aapp: mongo
+  type:  NodePort
+  ports:
+  - name:  mongodbport
+    port:  80
+    targetPort:  8000
+    NodePort: 27017
