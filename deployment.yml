@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name:  mongodbsecret
+data:
+   MONGO_DB_USERNAME:  "mongodbuser"
+   MONGO_DB_PASSWORD:  "dbuser@123"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+  namespace: default
+  labels:
+    app:  mongo
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  mongo
+    spec:
+      containers:
+      - name:  mongo
+        image:  mongo:latest
+        resources:
+          requests:
+            cpu: 200m
+            memory: 1Gi
+          limits:
+            cpu: 200m
+            memory: 1Gi
+        livenessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        env:
+        - name: MONGO_DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongodbsecret
+              key: MONGO_DB_USERNAME
+        - name: MONGO_DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: mongodbsecret
+              key: MONGO_DB_PASSWORD              
+        ports:
+        - containerPort:  80
+          name:  mongo
+        volumeMounts:
+        - name: dbvolume
+          mountPath: /data/db
+      volumes:
+        - name: dbvolume
+          hostPath:
+            path: /data/db
+      restartPolicy: Always
