@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name:  mongodbsecret
+  name: mongodbsecret
+type: Opaque
 data:
-   MONGO_DB_USERNAME:  "mongodbuser"
-   MONGO_DB_PASSWORD:  "dbuser@123"
+  MONGO_DB_USERNAME: bW9uZ29kYnVzZXI=  # base64 encoded value of "mongodbuser" .
+  MONGO_DB_PASSWORD: ZGJ1c2VyQDEyMw==  # base64 encoded value of "dbuser@123"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -12,7 +13,7 @@ metadata:
   name: mongo
   namespace: default
   labels:
-    app:  mongo
+    app: mongo
 spec:
   selector:
     matchLabels:
@@ -26,11 +27,11 @@ spec:
   template:
     metadata:
       labels:
-        app:  mongo
+        app: mongo
     spec:
       containers:
-      - name:  mongo
-        image:  mongo:latest
+      - name: mongo
+        image: mongo:latest
         resources:
           requests:
             cpu: 200m
@@ -58,17 +59,17 @@ spec:
         env:
         - name: MONGO_DB_USERNAME
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: mongodbsecret
               key: MONGO_DB_USERNAME
         - name: MONGO_DB_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: mongodbsecret
-              key: MONGO_DB_PASSWORD              
+              key: MONGO_DB_PASSWORD
         ports:
-        - containerPort:  80
-          name:  mongo
+        - containerPort: 80
+          name: mongo
         volumeMounts:
         - name: dbvolume
           mountPath: /data/db
